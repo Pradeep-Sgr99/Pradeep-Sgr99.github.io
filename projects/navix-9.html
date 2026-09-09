@@ -336,7 +336,7 @@
             <tr>
                 <td>Microcontroller</td>
                 <td>STMicroelectronics <b>STM32H743VIT6</b> &mdash; Arm Cortex-M7 @ up to 480&nbsp;MHz, 2&nbsp;MB
-                    Flash / 1&nbsp;MB RAM, LQFP100</td>
+                    Flash / 1&nbsp;MB RAM</td>
             </tr>
             <tr>
                 <td>Positioning</td>
@@ -371,11 +371,10 @@
         <ul class="clean">
             <li><b>STM32H743VIT6</b>, Arm Cortex-M7 with double-precision FPU &mdash; headroom for the 100&nbsp;Hz EKF
                 plus concurrent GNSS / RTCM stream handling.</li>
-            <li><b>Debug:</b> 2-wire SWD &mdash; <code>SWDIO&nbsp;PA13</code>, <code>SWCLK&nbsp;PA14</code>,
-                <code>NRST</code>; <code>BOOT0</code> strap selects Flash vs. system bootloader (UART/USB DFU).</li>
-            <li><b>Clocks:</b> HSE crystal on <code>PH0/PH1</code> for the system clock; 32.768&nbsp;kHz LSE on
-                <code>PC14/PC15</code> for the RTC.</li>
-            <li><b>Rails:</b> <code>VCAP1/VCAP2</code> each decoupled with 2.2&nbsp;&micro;F to ground for the internal LDO.</li>
+            <li><b>Debug:</b> 2-wire SWD (SWDIO / SWCLK / NRST); the BOOT0 strap selects Flash vs. the system
+                bootloader (UART / USB DFU).</li>
+            <li><b>Clocks:</b> HSE crystal for the system clock; 32.768&nbsp;kHz LSE crystal for the RTC.</li>
+            <li><b>Rails:</b> the core LDO decoupling caps (2.2&nbsp;&micro;F to ground) are placed close to the MCU.</li>
         </ul>
 
         <h2><span class="dot"></span>Positioning &mdash; dual u-blox ZED-F9P</h2>
@@ -384,22 +383,22 @@
             firmware full visibility and control of the correction data.</p>
         <table>
             <tr>
-                <th style="width:26%">Module</th>
+                <th style="width:30%">Module</th>
                 <th>Host link (UART1)</th>
                 <th>RTCM3 (UART2)</th>
-                <th>Control</th>
+                <th>Control lines</th>
             </tr>
             <tr>
                 <td><b>GNSS #1</b><br>primary / rover</td>
-                <td>USART2 &mdash; <code>PD5</code> / <code>PD6</code></td>
-                <td>USART3 &mdash; <code>PD8</code> / <code>PD9</code></td>
-                <td>RESETn, SAFEBOOTn, TIMEPULSE/PPS on <code>PB3</code> / <code>PB4</code> / <code>PB5</code></td>
+                <td>USART2</td>
+                <td>USART3</td>
+                <td>RESETn, SAFEBOOTn, TIMEPULSE / PPS</td>
             </tr>
             <tr>
                 <td><b>GNSS #2</b><br>secondary / moving-base</td>
-                <td>UART4 &mdash; <code>PC10</code> / <code>PC11</code></td>
-                <td>UART5 &mdash; <code>PC12</code> / <code>PD2</code></td>
-                <td>RESETn <code>PA0</code>, TIMEPULSE/PPS <code>PA6</code></td>
+                <td>UART4</td>
+                <td>UART5</td>
+                <td>RESETn, TIMEPULSE / PPS</td>
             </tr>
         </table>
         <p class="lead"><b>Output:</b> RTK-level absolute position from the rover, plus a GNSS-derived heading vector
@@ -408,79 +407,71 @@
         <h2><span class="dot"></span>Inertial &amp; sensor suite (feeds the 100&nbsp;Hz EKF)</h2>
         <table>
             <tr>
-                <th style="width:24%">Sensor</th>
+                <th style="width:32%">Sensor</th>
                 <th>Bus</th>
-                <th>Pins</th>
                 <th>Interrupts</th>
             </tr>
             <tr>
                 <td><b>ICM-42688-P</b><br>IMU #1, 6-axis</td>
                 <td>I2C3 &mdash; dedicated</td>
-                <td>SCL <code>PA8</code> / SDA <code>PC9</code></td>
-                <td>INT1 <code>PC8</code></td>
+                <td>INT1</td>
             </tr>
             <tr>
                 <td><b>ASM330LHHX</b><br>IMU #2, 6-axis, automotive</td>
                 <td>I2C4 &mdash; dedicated</td>
-                <td>SCL <code>PD12</code> / SDA <code>PD13</code></td>
-                <td>INT1 <code>PD14</code>, INT2 <code>PD15</code></td>
+                <td>INT1, INT2</td>
             </tr>
             <tr>
                 <td><b>IIS2MDCTR</b><br>magnetometer</td>
                 <td>I2C1 &mdash; shared</td>
-                <td>SCL <code>PB6</code> / SDA <code>PB7</code></td>
-                <td>DRDY <code>PB8</code></td>
+                <td>DRDY</td>
             </tr>
             <tr>
                 <td><b>SHT31A-DIS</b><br>humidity / temp</td>
                 <td>I2C1 &mdash; shared</td>
-                <td>SCL <code>PB6</code> / SDA <code>PB7</code></td>
                 <td>&mdash;</td>
             </tr>
         </table>
-        <div class="callout"><b>Bus allocation:</b> I2C2 is unavailable on the LQFP100 package while Ethernet is
-            populated (its only pin, <code>PB11</code>, is taken by RMII TX_EN). That leaves three hardware I2C buses
-            for four devices &mdash; so the two timing-critical IMUs each get a dedicated bus, and the two low-rate
-            sensors share I2C1 at distinct addresses.</div>
+        <div class="callout"><b>Bus allocation:</b> I2C2 is unusable while Ethernet is populated &mdash; its pins are
+            committed to the RMII interface. That leaves three hardware I2C buses for four devices, so the two
+            timing-critical IMUs each get a dedicated bus and the two low-rate sensors share one bus at distinct
+            addresses.</div>
 
         <h2><span class="dot"></span>Communication interfaces</h2>
         <table>
             <tr>
-                <th style="width:20%">Interface</th>
-                <th>MCU peripheral / pins</th>
+                <th style="width:22%">Interface</th>
+                <th>MCU peripheral</th>
                 <th>Transceiver / PHY</th>
                 <th>Use</th>
             </tr>
             <tr>
                 <td><b>Ethernet 10/100</b></td>
-                <td>RMII &mdash; STM32 MAC; <code>REF_CLK PA1</code>, <code>MDIO PA2</code>, <code>MDC PC1</code>,
-                    <code>CRS_DV PA7</code>, <code>RXD0/1 PC4/PC5</code>, <code>TX_EN PB11</code>,
-                    <code>TXD0/1 PB12/PB13</code></td>
+                <td>STM32 internal MAC over RMII</td>
                 <td><b>LAN8742A</b> RMII PHY</td>
                 <td>Wired network / host</td>
             </tr>
             <tr>
                 <td><b>CAN FD</b></td>
-                <td>FDCAN1 &mdash; <code>RX PD0</code> / <code>TX PD1</code>; standby <code>STB PC0</code> (driven low)</td>
+                <td>FDCAN1; transceiver standby (STB) held active</td>
                 <td><b>TJA1052i</b> isolated CAN FD</td>
                 <td>PLC / automation bus</td>
             </tr>
             <tr>
                 <td><b>RS-232 (isolated)</b></td>
-                <td>USART1 &mdash; <code>TX PA9</code> / <code>RX PA10</code>; GPIO flow control
-                    <code>RTS PA4</code> / <code>CTS PA5</code></td>
-                <td><b>MAX3222ECUP+</b> driver behind <b>ADuM1402BRWZ</b> digital isolator (4 channels: TX, RTS, RX, CTS)</td>
+                <td>USART1 with GPIO-managed RTS / CTS flow control</td>
+                <td><b>MAX3222ECUP+</b> driver behind an <b>ADuM1402BRWZ</b> digital isolator (4 channels: TX, RTS, RX, CTS)</td>
                 <td>Isolated serial / telemetry</td>
             </tr>
             <tr>
                 <td><b>USB 2.0 FS</b></td>
-                <td>OTG_FS &mdash; <code>D&minus; PA11</code> / <code>D+ PA12</code></td>
+                <td>OTG_FS</td>
                 <td>&mdash;</td>
                 <td>Device / firmware DFU</td>
             </tr>
             <tr>
                 <td><b>Debug console</b></td>
-                <td>USART6 &mdash; <code>TX PC6</code> / <code>RX PC7</code></td>
+                <td>USART6</td>
                 <td>&mdash;</td>
                 <td>Serial log / bring-up</td>
             </tr>
@@ -488,12 +479,10 @@
 
         <h2><span class="dot"></span>Storage, indication &amp; misc</h2>
         <ul class="clean">
-            <li><b>microSD (MSD-4-A)</b> in SPI mode on <b>SPI4</b> &mdash; <code>SCK PE2</code>,
-                <code>MOSI PE6</code>, <code>MISO PE5</code>, <code>CS PE4</code>, plus mechanical card-detect
-                <code>PE3</code>. On-board data logging of raw GNSS, IMU and fused output.</li>
-            <li><b>RGB status LED</b> &mdash; <code>R PC13</code>, <code>G PE0</code>, <code>B PE1</code>
-                (moved off the analog-only PC2_C/PC3_C pins).</li>
-            <li><b>Buzzer</b> on <code>PA3</code> &mdash; GPIO or <code>TIM5_CH4</code> PWM for tone control.</li>
+            <li><b>microSD (MSD-4-A)</b> in SPI mode on <b>SPI4</b>, with a mechanical card-detect line. On-board
+                logging of raw GNSS, IMU and fused output.</li>
+            <li><b>RGB status LED</b> &mdash; three GPIO channels (moved off analog-only pins in an earlier revision).</li>
+            <li><b>Buzzer</b> &mdash; GPIO or timer PWM for tone control.</li>
             <li><b>Backup domain</b> &mdash; VBAT coin cell keeps the RTC / backup registers alive across power loss.</li>
         </ul>
 
@@ -511,11 +500,13 @@
         <h2><span class="dot"></span>Design notes &amp; revision history</h2>
         <ul class="clean">
             <li><b>Rev 8</b> &mdash; IMU #2 changed from BMI085 (Bosch, dual-die) to <b>ASM330LHHX</b> (ST, single-die,
-                AEC-Q100). Same I2C4 bus and INT1/INT2 pins &mdash; relabelled only, no layout change.</li>
+                AEC-Q100). Same I2C4 bus and interrupt lines &mdash; relabelled only, no layout change.</li>
             <li><b>Rev 7</b> &mdash; Ethernet reverted from a W5500 SPI controller to <b>LAN8742A / RMII</b> (internal
-                MAC); freed SPI3, which was repurposed for GNSS&nbsp;#1 control lines. Both IMUs moved from SPI to I2C.</li>
-            <li>TJA1052i <code>STB</code> must be actively driven low &mdash; its internal pull-up defaults to standby.</li>
-            <li>PB3/PB4 double as JTDO/NJTRST; usable for GNSS&nbsp;#1 control because debug stays in 2-wire SWD.</li>
+                MAC); the freed SPI bus was repurposed for GNSS&nbsp;#1 control lines. Both IMUs moved from SPI to I2C.</li>
+            <li>The CAN transceiver standby (STB) is actively driven &mdash; its internal pull-up otherwise defaults to
+                standby.</li>
+            <li>GNSS&nbsp;#1 control reuses pins that also carry JTAG functions &mdash; fine because debug stays in
+                2-wire SWD.</li>
             <li>Final netlist confirmed in STM32CubeMX before layout &mdash; particularly the I2C bus split and the
                 dual-GNSS UART2 routing.</li>
         </ul>
