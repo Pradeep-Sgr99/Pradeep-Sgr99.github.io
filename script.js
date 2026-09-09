@@ -126,9 +126,9 @@ loginBtn.addEventListener('click', () => {
     shake(document.getElementById('username'));
     return;
   }
-  if (passcode !== '1234') {
+  if (passcode !== '2026') {
     shake(document.getElementById('passcode'));
-    showToast('Incorrect passcode. Try: 1234');
+    showToast('Incorrect passcode.');
     return;
   }
   // Trigger door open animation, then show dashboard
