@@ -1,0 +1,10 @@
+# Local backups / scratch
+_backup/
+*.bak
+*.beforeResume.*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/

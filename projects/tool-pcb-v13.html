@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOOL PCB V1.3 &mdash; Project Spec Sheet | Pradeepa N O</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #FEFBF6;
+            --ink: #2D2424;
+            --muted: #6b5d55;
+            --accent: #B08D57;
+            --accent2: #D4AF37;
+            --line: rgba(176, 141, 87, 0.25);
+            --card: #ffffff;
+            --chip: rgba(176, 141, 87, 0.10);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+            padding: 32px 16px 64px;
+        }
+
+        .sheet {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            padding: 44px 48px;
+        }
+
+        .toolbar {
+            max-width: 900px;
+            margin: 0 auto 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .toolbar a:hover { text-decoration: underline; }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 9px 18px;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-print:hover { filter: brightness(1.06); }
+
+        header.doc-head {
+            border-bottom: 3px solid var(--accent2);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.3rem;
+            line-height: 1.1;
+            margin: 6px 0 4px;
+        }
+
+        .subtitle { font-size: 1.02rem; color: var(--muted); }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .meta-row b { color: var(--ink); font-weight: 600; }
+
+        .photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 22px 0 6px;
+        }
+
+        .photos figure {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #faf6ef;
+        }
+
+        .photos img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photos figcaption {
+            font-size: 0.74rem;
+            color: var(--muted);
+            padding: 7px 10px;
+            border-top: 1px solid var(--line);
+        }
+
+        figure.wide {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #faf6ef;
+            margin: 14px 0 6px;
+        }
+
+        figure.wide img { width: 100%; display: block; }
+
+        figure.wide figcaption {
+            font-size: 0.74rem;
+            color: var(--muted);
+            padding: 7px 10px;
+            border-top: 1px solid var(--line);
+        }
+
+        h2 {
+            font-size: 1.12rem;
+            margin: 26px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        h2 .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent2);
+            flex-shrink: 0;
+        }
+
+        p.lead { margin: 8px 0; }
+
+        ul.clean { list-style: none; margin: 6px 0; }
+
+        ul.clean li {
+            padding: 5px 0 5px 20px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        ul.clean li b { font-weight: 600; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+            margin: 10px 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--chip);
+            font-weight: 700;
+            font-size: 0.76rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        td code {
+            font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+            font-size: 0.82em;
+            background: var(--chip);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0 2px;
+        }
+
+        .chips span {
+            font-size: 0.74rem;
+            background: var(--chip);
+            border: 1px solid var(--line);
+            color: var(--accent);
+            border-radius: 20px;
+            padding: 3px 11px;
+        }
+
+        .callout {
+            background: var(--chip);
+            border-left: 3px solid var(--accent2);
+            border-radius: 6px;
+            padding: 12px 14px;
+            font-size: 0.86rem;
+            margin: 12px 0;
+        }
+
+        footer.doc-foot {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        footer.doc-foot a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 680px) {
+            .sheet { padding: 30px 22px; }
+            h1 { font-size: 1.8rem; }
+            .photos { grid-template-columns: 1fr; }
+            .photos img { height: 200px; }
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; font-size: 11px; }
+            .toolbar { display: none; }
+            .sheet {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                max-width: none;
+                padding: 0;
+            }
+            h2 { break-after: avoid; }
+            table, ul.clean, .callout, .photos, figure.wide { break-inside: avoid; }
+            .photos img { height: 180px; }
+            a { color: var(--ink); text-decoration: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <a href="../index.html">&larr; Back to portfolio</a>
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="sheet">
+
+        <header class="doc-head">
+            <div class="eyebrow">Project Spec Sheet &nbsp;&bull;&nbsp; 02</div>
+            <h1>TOOL PCB V1.3</h1>
+            <div class="subtitle">Battery-powered BLE handheld tool board &mdash; PMIC-managed, Hall + motion sensing</div>
+            <div class="meta-row">
+                <span><b>Role:</b> Hardware design, PCB layout &amp; test tooling</span>
+                <span><b>Company:</b> OSEC</span>
+                <span><b>SoC:</b> Nordic nRF52832 (Cortex-M4F, BLE)</span>
+                <span><b>Revision:</b> V1.3</span>
+                <span><b>Form factor:</b> Curved ergonomic handheld outline, PCB antenna</span>
+            </div>
+        </header>
+
+        <div class="photos">
+            <figure>
+                <img src="../Photo/boards/tool-pcb-top.png" alt="TOOL PCB V1.3, top side"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>TOOL_PCB_V1.3 &mdash; top side (nRF52832, PMIC, USB-C, PCB antenna)</figcaption>
+            </figure>
+            <figure>
+                <img src="../Photo/boards/tool-pcb-layout.png" alt="TOOL PCB V1.3 copper layout"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>Top-copper layout &mdash; solid ground pour, antenna keep-out on the tail</figcaption>
+            </figure>
+        </div>
+
+        <h2><span class="dot"></span>Overview</h2>
+        <p class="lead">TOOL PCB V1.3 is a compact, battery-powered handheld board built around a <b>Nordic nRF52832</b>
+            BLE SoC. A <b>Nordic nPM1304 PMIC</b> handles Li-ion charging, system power and fuel-gauging; a
+            <b>LIS2DTW12</b> provides 3-axis motion plus temperature, and an <b>A1392</b> linear Hall sensor reads a
+            magnet-based trigger / position input. A <b>CP2102N</b> USB-to-UART bridge gives a wired console over the
+            USB-C port. Firmware streams live power and sensor telemetry over BLE to a purpose-built Windows
+            <b>test dashboard</b> used for bring-up and battery/charge validation.</p>
+
+        <div class="chips">
+            <span>nRF52832 BLE</span><span>nPM1304 PMIC</span><span>Li-ion charging</span><span>Fuel gauge</span>
+            <span>Linear Hall</span><span>Accel + temp</span><span>USB-C / CP2102N</span><span>Custom test dashboard</span>
+        </div>
+
+        <h2><span class="dot"></span>Key components</h2>
+        <table>
+            <tr>
+                <th style="width:26%">Part</th>
+                <th style="width:24%">Function</th>
+                <th>Role on the board</th>
+            </tr>
+            <tr>
+                <td><b>nRF52832</b><br>Nordic Semiconductor</td>
+                <td>BLE 5 SoC &mdash; Arm Cortex-M4F @ 64&nbsp;MHz, 512&nbsp;KB Flash / 64&nbsp;KB RAM, 2.4&nbsp;GHz radio</td>
+                <td>Main controller &mdash; BLE peripheral, sensor acquisition, PMIC host, on-board PCB antenna
+                    (<code>Ant1</code>)</td>
+            </tr>
+            <tr>
+                <td><b>NPM1304-QEAA-R7</b><br>Nordic nPM1304</td>
+                <td>Power-management IC &mdash; Li-ion battery charger, regulated system supply, load switch, integrated
+                    fuel gauge</td>
+                <td>USB-C 5&nbsp;V input &rarr; battery charge (4.20&nbsp;V CV, configurable current) &rarr; VSYS to the
+                    SoC; switchable <code>VOUT2</code> auxiliary rail; ship / hold mode for shelf storage</td>
+            </tr>
+            <tr>
+                <td><b>LIS2DTW12TR</b><br>STMicroelectronics</td>
+                <td>Ultra-low-power 3-axis accelerometer with embedded temperature sensor</td>
+                <td>Motion / orientation and board temperature; data-ready &amp; wake-up interrupts to the SoC
+                    (dashboard &ldquo;IMU (mg)&rdquo;, ID <code>TL/A1</code>)</td>
+            </tr>
+            <tr>
+                <td><b>A1392SEHLT-T</b><br>Allegro MicroSystems</td>
+                <td>Micropower ratiometric <b>linear Hall-effect</b> sensor, analog output</td>
+                <td>Magnet-based trigger / position sensing on the <code>H+ / H&minus;</code> nodes; output read by the
+                    SoC SAADC, sensor gated by a GPIO enable for micropower duty-cycling</td>
+            </tr>
+            <tr>
+                <td><b>CP2102N</b><br>Silicon Labs</td>
+                <td>USB 2.0 full-speed to UART bridge, integrated regulator</td>
+                <td>Virtual COM port over the USB-C connector for wired console / logging / production test</td>
+            </tr>
+        </table>
+
+        <h2><span class="dot"></span>Interfaces &amp; connectivity</h2>
+        <table>
+            <tr>
+                <th style="width:26%">Function</th>
+                <th style="width:30%">Device</th>
+                <th>SoC interface</th>
+            </tr>
+            <tr>
+                <td>Wireless link</td>
+                <td>nRF52832 radio + PCB antenna</td>
+                <td>Bluetooth Low Energy &mdash; custom GATT service (telemetry stream + control)</td>
+            </tr>
+            <tr>
+                <td>Power / charge / fuel gauge</td>
+                <td>nPM1304 PMIC</td>
+                <td>I&sup2;C (host / control) + interrupt line for charge / fault events</td>
+            </tr>
+            <tr>
+                <td>Motion + temperature</td>
+                <td>LIS2DTW12</td>
+                <td>I&sup2;C (<code>SDA1 / SCL1</code>) + INT (data-ready / wake)</td>
+            </tr>
+            <tr>
+                <td>Magnetic field</td>
+                <td>A1392 linear Hall</td>
+                <td>SAADC analog input (<code>H+ / H&minus;</code>) + GPIO enable</td>
+            </tr>
+            <tr>
+                <td>Wired console</td>
+                <td>CP2102N &rarr; USB-C</td>
+                <td>UART (TX / RX)</td>
+            </tr>
+            <tr>
+                <td>Programming / debug</td>
+                <td>nRF52832 SWD</td>
+                <td>SWDIO / SWCLK pads (<code>J2</code> area)</td>
+            </tr>
+            <tr>
+                <td>Low-power clock</td>
+                <td>32.768&nbsp;kHz crystal (Abracon ABS07)</td>
+                <td>LFXO &mdash; BLE low-power timing / RTC</td>
+            </tr>
+        </table>
+
+        <h2><span class="dot"></span>Power architecture</h2>
+        <ul class="clean">
+            <li><b>Input:</b> USB-C 5&nbsp;V feeds the nPM1304 charger input; the same port carries USB data to the
+                CP2102N.</li>
+            <li><b>Battery:</b> single-cell Li-ion / Li-po, charged by the PMIC at 4.20&nbsp;V CV with configurable
+                current; battery thermistor on <code>TS1</code> for JEITA-safe charging.</li>
+            <li><b>System rail:</b> PMIC regulates <code>VSYS</code> to the nRF52832 and sensors; the fuel gauge reports
+                state-of-charge, VBAT, VSYS and battery current back to firmware.</li>
+            <li><b>VOUT2:</b> a firmware / dashboard-controlled switchable auxiliary output for powering a downstream
+                load only when needed.</li>
+            <li><b>Storage:</b> PMIC ship / hold mode brings quiescent current to near-zero for shelf life; wake on
+                USB insertion or button.</li>
+            <li><b>Indication:</b> <code>CHARGE</code>, <code>ERROR</code> and <code>HOST1</code> status LEDs.</li>
+        </ul>
+
+        <h2><span class="dot"></span>Firmware</h2>
+        <ul class="clean">
+            <li><b>BLE peripheral</b> exposing a custom GATT service: a notify characteristic streams
+                <code>VBAT&nbsp;/&nbsp;IBAT&nbsp;/&nbsp;VSYS&nbsp;/&nbsp;SOC&nbsp;/&nbsp;CHG</code> plus accelerometer XYZ;
+                a write characteristic accepts control commands.</li>
+            <li><b>PMIC driver</b> over I&sup2;C &mdash; reads charger state, VBUS / VBAT / VSYS, fuel-gauge SOC and
+                battery current; sets charge enable, charge current and <code>VOUT2</code>; issues power-off / ship mode.</li>
+            <li><b>Sensor tasks</b> &mdash; LIS2DTW12 accel + temperature over I&sup2;C on data-ready interrupt; A1392
+                Hall sampled on the SAADC with the sensor enable duty-cycled for micropower operation.</li>
+            <li><b>Wired path</b> &mdash; the same telemetry mirrored over the CP2102N UART for console logging and
+                production test without a BLE host.</li>
+        </ul>
+
+        <h2><span class="dot"></span>Test &amp; validation dashboard</h2>
+        <p class="lead">A companion Windows GUI (<b>TOOL_01 PMIC Dashboard</b>) was built alongside the board to
+            exercise and validate it. It scans for the device by BLE address, connects, and streams live data:</p>
+        <ul class="clean">
+            <li><b>Battery</b> &mdash; SOC ring, VBAT and VSYS readouts.</li>
+            <li><b>Charger</b> &mdash; state (idle / charging), target current &amp; voltage, enable / disable control,
+                power-off.</li>
+            <li><b>Current / SOC</b> &mdash; live battery current and state-of-charge bar.</li>
+            <li><b>IMU</b> &mdash; accelerometer X/Y/Z in mg.</li>
+            <li><b>VOUT2</b> &mdash; enable / disable the auxiliary rail.</li>
+            <li><b>Terminal console</b> &mdash; timestamped streaming log
+                (<code>VBAT=&hellip; IBAT=&hellip; VSYS=&hellip; SOC=&hellip; CHG=&hellip;</code>) for charge-curve capture
+                and regression checks.</li>
+        </ul>
+        <figure class="wide">
+            <img src="../Photo/boards/tool-test-dashboard.png" alt="TOOL_01 PMIC test dashboard GUI"
+                onerror="this.parentElement.style.display='none'">
+            <figcaption>TOOL_01 PMIC Dashboard &mdash; BLE connection, live battery / charger / IMU panels and a
+                streaming telemetry console.</figcaption>
+        </figure>
+
+        <h2><span class="dot"></span>Layout notes</h2>
+        <ul class="clean">
+            <li>Curved ergonomic board outline sized to the handheld enclosure; component placement worked around the
+                grip and the trigger-magnet path.</li>
+            <li>Integrated <b>PCB antenna</b> on a dedicated tail with a ground / copper keep-out and the RF matching
+                network placed at the feed.</li>
+            <li>Solid ground pour under the digital and PMIC sections; switching / charge current kept away from the
+                Hall analog nodes and the SAADC reference.</li>
+            <li>Test points broken out for <code>H+ / H&minus;</code> (Hall), <code>SDA1 / SCL1</code> (I&sup2;C),
+                <code>V1 / V2 / V5V5 / GND1</code> and <code>TS1</code> for bring-up and production test.</li>
+        </ul>
+
+        <footer class="doc-foot">
+            <span>Pradeepa N O &mdash; Embedded Systems Engineer</span>
+            <span><a href="mailto:Pradeepsgr1747@gmail.com">Pradeepsgr1747@gmail.com</a> &nbsp;&bull;&nbsp;
+                <a href="https://github.com/Pradeep-Sgr99">github.com/Pradeep-Sgr99</a></span>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

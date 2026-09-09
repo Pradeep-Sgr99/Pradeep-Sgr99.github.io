@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RELAY Board V1.0 &mdash; Project Spec Sheet | Pradeepa N O</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #FEFBF6;
+            --ink: #2D2424;
+            --muted: #6b5d55;
+            --accent: #B08D57;
+            --accent2: #D4AF37;
+            --line: rgba(176, 141, 87, 0.25);
+            --card: #ffffff;
+            --chip: rgba(176, 141, 87, 0.10);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+            padding: 32px 16px 64px;
+        }
+
+        .sheet {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            padding: 44px 48px;
+        }
+
+        .toolbar {
+            max-width: 900px;
+            margin: 0 auto 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .toolbar a:hover { text-decoration: underline; }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 9px 18px;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-print:hover { filter: brightness(1.06); }
+
+        header.doc-head {
+            border-bottom: 3px solid var(--accent2);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.3rem;
+            line-height: 1.1;
+            margin: 6px 0 4px;
+        }
+
+        .subtitle { font-size: 1.02rem; color: var(--muted); }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .meta-row b { color: var(--ink); font-weight: 600; }
+
+        .photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 22px 0 6px;
+        }
+
+        .photos figure {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #faf6ef;
+        }
+
+        .photos img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photos figcaption {
+            font-size: 0.74rem;
+            color: var(--muted);
+            padding: 7px 10px;
+            border-top: 1px solid var(--line);
+        }
+
+        h2 {
+            font-size: 1.12rem;
+            margin: 26px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        h2 .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent2);
+            flex-shrink: 0;
+        }
+
+        p.lead { margin: 8px 0; }
+
+        ul.clean { list-style: none; margin: 6px 0; }
+
+        ul.clean li {
+            padding: 5px 0 5px 20px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        ul.clean li b { font-weight: 600; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+            margin: 10px 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--chip);
+            font-weight: 700;
+            font-size: 0.76rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        td code {
+            font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+            font-size: 0.82em;
+            background: var(--chip);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0 2px;
+        }
+
+        .chips span {
+            font-size: 0.74rem;
+            background: var(--chip);
+            border: 1px solid var(--line);
+            color: var(--accent);
+            border-radius: 20px;
+            padding: 3px 11px;
+        }
+
+        .callout {
+            background: var(--chip);
+            border-left: 3px solid var(--accent2);
+            border-radius: 6px;
+            padding: 12px 14px;
+            font-size: 0.86rem;
+            margin: 12px 0;
+        }
+
+        footer.doc-foot {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        footer.doc-foot a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 680px) {
+            .sheet { padding: 30px 22px; }
+            h1 { font-size: 1.8rem; }
+            .photos { grid-template-columns: 1fr; }
+            .photos img { height: 210px; }
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; font-size: 11px; }
+            .toolbar { display: none; }
+            .sheet {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                max-width: none;
+                padding: 0;
+            }
+            h2 { break-after: avoid; }
+            table, ul.clean, .callout, .photos { break-inside: avoid; }
+            .photos img { height: 190px; }
+            a { color: var(--ink); text-decoration: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <a href="../index.html">&larr; Back to portfolio</a>
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="sheet">
+
+        <header class="doc-head">
+            <div class="eyebrow">Project Spec Sheet &nbsp;&bull;&nbsp; 03</div>
+            <h1>RELAY Board V1.0</h1>
+            <div class="subtitle">PoE-powered 10-channel relay controller with 2 PWM outputs, wired Ethernet and BLE control</div>
+            <div class="meta-row">
+                <span><b>Role:</b> Hardware design &amp; PCB layout</span>
+                <span><b>Company:</b> OSEC</span>
+                <span><b>MCU:</b> STM32F401CC (Cortex-M4F)</span>
+                <span><b>Wireless:</b> ESP32 (BLE)</span>
+                <span><b>Power:</b> IEEE&nbsp;802.3 PoE PD / DC input</span>
+            </div>
+        </header>
+
+        <div class="photos">
+            <figure>
+                <img src="../Photo/boards/relay-board-3d.png" alt="RELAY Board V1.0, top side"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>RELAY Board V1.0 &mdash; 10 relays with screw terminals, RJ45 PoE, DC jack, XT30 in + 2 PWM out</figcaption>
+            </figure>
+            <figure>
+                <img src="../Photo/boards/relay-board-bottom.png" alt="RELAY Board V1.0, bottom side"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>Bottom side &mdash; ESP32 module, driver stage and control routing</figcaption>
+            </figure>
+        </div>
+
+        <h2><span class="dot"></span>Overview</h2>
+        <p class="lead">RELAY Board V1.0 is a <b>10-channel relay controller</b> plus <b>two PWM-controlled power
+            outputs</b> (for LED brightness and other dimmable loads), running from <b>Power-over-Ethernet</b> with a DC
+            power-jack / XT30 fallback input. An <b>STM32F401</b> handles the relay and PWM logic and arbitrates between
+            two control paths: a wired IP interface through a <b>WIZnet W5500</b> hardwired TCP/IP controller, and a
+            <b>BLE interface</b> via an <b>ESP32</b> module. The PoE front end, isolated conversion and a
+            12&nbsp;V&nbsp;/&nbsp;5&nbsp;V&nbsp;/&nbsp;3.3&nbsp;V buck chain are all on-board, so a single Ethernet cable
+            delivers both data and power.</p>
+
+        <div class="chips">
+            <span>10&times; 5&nbsp;V relay outputs</span><span>2&times; PWM power outputs</span><span>PoE PD (PM8805)</span>
+            <span>Wired Ethernet (W5500)</span><span>BLE (ESP32)</span><span>100&nbsp;V &rarr; 12&nbsp;V &rarr; 5&nbsp;V</span>
+            <span>DMG3402L coil switching</span>
+        </div>
+
+        <h2><span class="dot"></span>Key components</h2>
+        <table>
+            <tr>
+                <th style="width:24%">Part</th>
+                <th style="width:26%">Function</th>
+                <th>Role on the board</th>
+            </tr>
+            <tr>
+                <td><b>STM32F401CC</b><br>STMicroelectronics</td>
+                <td>Arm Cortex-M4F @ 84&nbsp;MHz, 256&nbsp;KB Flash / 64&nbsp;KB RAM, LQFP48</td>
+                <td>Main controller &mdash; relay sequencing / interlocks, W5500 host, ESP32 link, input handling,
+                    power-rail supervision</td>
+            </tr>
+            <tr>
+                <td><b>W5500</b><br>WIZnet</td>
+                <td>Hardwired TCP/IP offload Ethernet controller &mdash; 10/100 MAC + PHY, 8 hardware sockets, SPI</td>
+                <td>Full wired IP stack with no load on the MCU &mdash; relay control over TCP / Modbus TCP / raw
+                    socket; connected by SPI + interrupt + reset</td>
+            </tr>
+            <tr>
+                <td><b>PM8805TR</b><br>STMicroelectronics</td>
+                <td>PoE Powered-Device interface &mdash; integrated hot-swap MOSFET, classification, UVLO, plus a PWM
+                    controller for the isolated converter</td>
+                <td>Brings the board up from the ~48&nbsp;V PoE bus on the RJ45; hot-swap inrush control and the
+                    primary-side switching for the isolated step-down</td>
+            </tr>
+            <tr>
+                <td><b>LM5164DDAR</b><br>Texas Instruments</td>
+                <td>100&nbsp;V, 1&nbsp;A synchronous buck converter</td>
+                <td>Wide-Vin primary step-down &mdash; PoE bus (100&nbsp;V-rated input) down to the <b>12&nbsp;V</b>
+                    board rail that feeds the PWM output stage and the point-of-load buck; the 100&nbsp;V rating absorbs
+                    PoE bus transients</td>
+            </tr>
+            <tr>
+                <td><b>TPS564247DRLR</b><br>Texas Instruments</td>
+                <td>4.5&ndash;18&nbsp;V, 6&nbsp;A synchronous buck converter</td>
+                <td>Point-of-load &mdash; 12&nbsp;V rail down to the <b>5&nbsp;V</b> relay-coil / system rail; a
+                    downstream buck provides 3.3&nbsp;V for the STM32, W5500 and ESP32</td>
+            </tr>
+            <tr>
+                <td><b>TC4427EOA</b><br>Microchip</td>
+                <td>Dual 1.5&nbsp;A high-speed MOSFET / gate driver</td>
+                <td>Drives the <b>two power MOSFETs</b> that PWM the high-current output channels (XT30) &mdash;
+                    e.g. LED brightness / dimmable-load control</td>
+            </tr>
+            <tr>
+                <td><b>DMG3402L</b> &times;10<br>Diodes Inc.</td>
+                <td>30&nbsp;V logic-level N-channel MOSFET (SOT-23)</td>
+                <td>Low-side switch for each relay coil &mdash; one per channel, gate driven directly from an MCU GPIO,
+                    freewheel diode across the coil</td>
+            </tr>
+            <tr>
+                <td><b>ESP32</b><br>Espressif module</td>
+                <td>Dual-core MCU with Bluetooth LE + Wi-Fi, on-module PCB antenna</td>
+                <td>BLE control channel &mdash; wireless relay actuation, configuration and status; UART bridge to the
+                    STM32 with boot / enable GPIO</td>
+            </tr>
+        </table>
+
+        <h2><span class="dot"></span>Interfaces &amp; connectivity</h2>
+        <table>
+            <tr>
+                <th style="width:26%">Function</th>
+                <th style="width:30%">Device / connector</th>
+                <th>MCU interface</th>
+            </tr>
+            <tr>
+                <td>Wired network + power</td>
+                <td>RJ45 (PoE magjack) &rarr; PM8805 PD &rarr; W5500</td>
+                <td>W5500 on SPI + INT + RST</td>
+            </tr>
+            <tr>
+                <td>Wireless control</td>
+                <td>ESP32 module</td>
+                <td>UART (+ EN / IO0 straps)</td>
+            </tr>
+            <tr>
+                <td>Relay outputs</td>
+                <td>10&times; 5&nbsp;V relay, 3-pole screw terminals (COM / NO / NC)</td>
+                <td>1 GPIO per channel &rarr; DMG3402L low-side N-ch MOSFET</td>
+            </tr>
+            <tr>
+                <td>PWM power outputs</td>
+                <td>2&times; XT30 output &mdash; TC4427 &rarr; power MOSFET</td>
+                <td>2&times; timer PWM (brightness / dimmable-load control)</td>
+            </tr>
+            <tr>
+                <td>Power input</td>
+                <td>DC power-jack connector + 1&times; XT30 input</td>
+                <td>&mdash; (power path only, feeds the wide-Vin front end)</td>
+            </tr>
+            <tr>
+                <td>Low-voltage I/O</td>
+                <td>JST headers</td>
+                <td>GPIO / ADC inputs</td>
+            </tr>
+            <tr>
+                <td>Programming / debug</td>
+                <td>STM32 SWD header</td>
+                <td>SWDIO / SWCLK</td>
+            </tr>
+        </table>
+
+        <h2><span class="dot"></span>Power architecture</h2>
+        <ul class="clean">
+            <li><b>Source:</b> IEEE&nbsp;802.3 PoE on the RJ45 &mdash; <b>PM8805</b> handles detection / classification,
+                inrush-limited hot-swap and the primary-side switching of the isolated step-down. A DC power-jack and an
+                XT30 input feed the same downstream chain for bench or non-PoE use.</li>
+            <li><b>Stage 1 &mdash; LM5164 (100&nbsp;V buck):</b> PoE bus &rarr; <b>12&nbsp;V rail</b>, with headroom for
+                PoE bus transients.</li>
+            <li><b>Stage 2 &mdash; TPS564247 (6&nbsp;A buck):</b> 12&nbsp;V &rarr; <b>5&nbsp;V</b> relay-coil / system
+                rail.</li>
+            <li><b>Stage 3 &mdash; 3.3&nbsp;V buck:</b> 5&nbsp;V &rarr; 3.3&nbsp;V logic for the STM32, W5500 and ESP32.</li>
+            <li><b>Relay coils:</b> 5&nbsp;V, each switched low-side by a <b>DMG3402L</b> logic-level N-channel MOSFET
+                driven straight from an MCU GPIO, with a freewheel diode across every coil.</li>
+            <li><b>PWM outputs:</b> the two XT30 output channels are switched by power MOSFETs gated by the
+                <b>TC4427</b> from MCU timer PWM &mdash; used for LED brightness and other dimmable / variable loads.</li>
+            <li><b>Isolation:</b> a barrier separates the PoE front-end / converter primary from the logic secondary.</li>
+        </ul>
+
+        <h2><span class="dot"></span>Firmware &amp; control</h2>
+        <ul class="clean">
+            <li><b>STM32F401</b> owns relay state and interlocks; both control paths issue requests and the MCU
+                arbitrates (last-command / priority, with a safe default state on link loss).</li>
+            <li><b>Wired path:</b> W5500 hardware sockets expose relay control over TCP &mdash; Modbus TCP / JSON / raw
+                command set &mdash; with the IP stack fully offloaded from the MCU.</li>
+            <li><b>BLE path:</b> ESP32 runs a GATT service for relay actuation, naming, grouping and live status,
+                bridged to the STM32 over UART.</li>
+            <li><b>Supervision:</b> rail monitoring, per-channel state feedback and a watchdog-backed fail-safe.</li>
+        </ul>
+
+        <h2><span class="dot"></span>Layout notes</h2>
+        <ul class="clean">
+            <li>Two banks of five relays with the screw terminals on the board edges; each coil returned through its
+                DMG3402L close to the relay, and the 5&nbsp;V coil rail kept clear of the SPI / control routing.</li>
+            <li>The two PWM output MOSFETs and their XT30 terminals placed near the 12&nbsp;V rail with short, wide
+                high-current paths; TC4427 gate drive kept tight to the MOSFET gates.</li>
+            <li>PoE front end and the isolated converter grouped at the RJ45 end, behind the isolation barrier and away
+                from the logic and the ESP32 antenna.</li>
+            <li>ESP32 module placed with its antenna over a board-edge keep-out; W5500 SPI kept short to the STM32.</li>
+            <li>Wide-Vin Stage-1 converter and bulk input filtering near the power entry; separate power and logic
+                grounds joined at a single point.</li>
+        </ul>
+
+        <footer class="doc-foot">
+            <span>Pradeepa N O &mdash; Embedded Systems Engineer</span>
+            <span><a href="mailto:Pradeepsgr1747@gmail.com">Pradeepsgr1747@gmail.com</a> &nbsp;&bull;&nbsp;
+                <a href="https://github.com/Pradeep-Sgr99">github.com/Pradeep-Sgr99</a></span>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

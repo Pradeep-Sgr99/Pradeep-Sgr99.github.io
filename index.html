@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pradeepa N O | Embedded Systems Engineer</title>
+    <meta name="description" content="Pradeepa N O — Embedded Systems Engineer specializing in multilayer PCB design, power electronics, and STM32/ESP32 firmware." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Dancing+Script:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- RECEPTION SCENE -->
+    <div id="reception" class="reception-scene">
+
+        <!-- Ambient lighting -->
+        <div class="spotlight"></div>
+        <div class="light-beam"></div>
+        <div class="scene-grain"></div>
+        <div class="scene-vignette"></div>
+
+        <!-- Wall with brand identity -->
+        <div class="back-wall">
+            <div class="wall-monogram">P</div>
+            <div class="wall-trim top-trim"></div>
+            <div class="nameplate">
+                <div class="nameplate-name">PRADEEPA&nbsp;N&nbsp;O</div>
+                <div class="nameplate-role">Embedded Systems &nbsp;&bull;&nbsp; PCB Design &nbsp;&bull;&nbsp; Firmware</div>
+            </div>
+            <div class="sconce sconce-left"><span class="sconce-arm"></span><span class="sconce-lamp"></span><span class="sconce-glow"></span></div>
+            <div class="sconce sconce-right"><span class="sconce-arm"></span><span class="sconce-lamp"></span><span class="sconce-glow"></span></div>
+        </div>
+
+        <!-- Reflective floor -->
+        <div class="floor">
+            <div class="floor-planks"></div>
+            <div class="floor-sheen"></div>
+        </div>
+
+        <!-- Floating gold dust -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Hanging digital sign -->
+        <div class="door-display-wrap">
+            <div class="display-rod left"></div>
+            <div class="display-rod right"></div>
+            <div class="door-display">
+                <div class="sign-side sign-date" id="signDate">Loading...</div>
+                <div class="marquee-wrap">
+                    <div class="marquee-content">
+                        <span class="m-welcome">Welcome &bull;</span>
+                        <span class="m-role">PCB Design &bull;</span>
+                        <span class="m-role">Power Electronics &bull;</span>
+                        <span class="m-role">Firmware &bull;</span>
+                        <span class="m-trait">Altium &bull;</span>
+                        <span class="m-trait">STM32 &bull;</span>
+                        <span class="m-trait">ESP32 &bull;</span>
+                        <!-- Second set for seamless looping -->
+                        <span class="m-welcome">Welcome &bull;</span>
+                        <span class="m-role">PCB Design &bull;</span>
+                        <span class="m-role">Power Electronics &bull;</span>
+                        <span class="m-role">Firmware &bull;</span>
+                        <span class="m-trait">Altium &bull;</span>
+                        <span class="m-trait">STM32 &bull;</span>
+                        <span class="m-trait">ESP32 &bull;</span>
+                    </div>
+                </div>
+                <div class="sign-side sign-time" id="signTime">--:--:-- --</div>
+            </div>
+        </div>
+
+        <!-- Glass Door -->
+        <div class="door-frame" id="doorFrame" title="Click to enter">
+            <div class="door-casing"></div>
+
+            <div class="door-hint" id="doorHint">
+                <span class="hint-dot"></span> Click to Enter <span class="arrow-anim">&#9662;</span>
+            </div>
+
+            <div class="door-panel left-panel" id="doorLeft">
+                <div class="glass-reflection"></div>
+                <div class="scan-line"></div>
+                <div class="corner-accent tl"><div class="rivet"></div></div>
+                <div class="corner-accent bl"><div class="rivet"></div></div>
+                <div class="d-handle">
+                    <div class="handle-glow"></div>
+                </div>
+                <div class="d-lines">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="door-panel right-panel" id="doorRight">
+                <div class="glass-reflection"></div>
+                <div class="scan-line"></div>
+                <div class="corner-accent tr"><div class="rivet"></div></div>
+                <div class="corner-accent br"><div class="rivet"></div></div>
+                <div class="d-handle right">
+                    <div class="handle-glow"></div>
+                </div>
+                <div class="d-lines">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="door-light-leak"></div>
+            <div class="door-floor-reflection"></div>
+        </div>
+
+    </div>
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" class="login-overlay hidden">
+        <div class="login-card">
+            <button class="close-btn" id="closeLogin">✕</button>
+            <div class="login-logo"><span>P</span></div>
+            <h2 class="login-title">Access Control</h2>
+            <p class="login-sub">Identify yourself to proceed inside</p>
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="login">🔑 Login</button>
+                <button class="tab-btn" data-tab="request">📋 Request Access</button>
+            </div>
+            <div class="tab-panel active" id="tab-login">
+                <div class="inp-grp"><label>Username</label><input type="text" id="username"
+                        placeholder="Enter your name" /></div>
+                <div class="inp-grp"><label>Passcode</label><input type="password" id="passcode"
+                        placeholder="••••••••" /></div>
+                <button class="btn-primary" id="loginBtn">Enter Portfolio →</button>
+                <p class="hint-note">Demo: any name + passcode <strong>1234</strong></p>
+            </div>
+            <div class="tab-panel" id="tab-request">
+                <div class="inp-grp"><label>Your Name</label><input type="text" id="req-name" placeholder="Full name" />
+                </div>
+                <div class="inp-grp"><label>Email</label><input type="email" id="req-email"
+                        placeholder="your@email.com" /></div>
+                <div class="inp-grp"><label>Purpose</label><textarea id="req-msg"
+                        placeholder="I'd like to learn about your work..." rows="3"></textarea></div>
+                <button class="btn-primary" id="reqBtn">Send Request ✉</button>
+            </div>
+            <div id="successMsg" class="success-msg hidden"><span>✅</span> Request sent! You'll hear back soon.</div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard hidden">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><span>P</span></div>
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-section="home"><span>🏠</span>Home</a>
+                <a class="nav-item" data-section="about"><span>👤</span>About</a>
+                <a class="nav-item" data-section="skills"><span>⚡</span>Skills</a>
+                <a class="nav-item" data-section="projects"><span>🚀</span>Projects</a>
+                <a class="nav-item" data-section="contact"><span>📬</span>Contact</a>
+            </nav>
+            <button class="exit-btn" id="exitDashboard">← Exit</button>
+        </aside>
+        <main class="dash-main">
+            <header class="dash-header">
+                <div class="dash-greeting">Welcome, <span id="visitorName">Guest</span> 👋</div>
+                <div id="dashTime" class="dash-time"></div>
+                <div class="avail-badge"><span class="green-dot"></span> Open to opportunities</div>
+            </header>
+
+            <div class="dash-content">
+
+                <section class="dash-section active" id="section-home">
+                    <div class="hero-card">
+                        <div class="hero-photo">
+                            <div class="photo-ring"></div>
+                            <div class="hero-avatar">
+                                <img src="Photo/photo.jpeg" alt="Pradeepa" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                        </div>
+                        <div class="hero-info">
+                            <h1>Hi, I'm <span class="highlight">Pradeepa N O</span></h1>
+                            <p class="hero-role">Embedded Systems Engineer &nbsp;|&nbsp; PCB Design &amp; Hardware</p>
+                            <p class="hero-quote">"From schematic to Gerber — hardware built to ship."</p>
+                            <div class="hero-btns">
+                                <button class="btn-primary" onclick="switchSection('projects')">View Projects
+                                    🚀</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-n">5+</div>
+                            <div class="stat-l">Years Experience</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-n">4&ndash;6</div>
+                            <div class="stat-l">Layer PCBs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-n">8+</div>
+                            <div class="stat-l">Comm Protocols</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-n">2</div>
+                            <div class="stat-l">Companies</div>
+                        </div>
+                    </div>
+
+                    <div class="board-gallery-wrap">
+                        <h2 class="board-gallery-title">Hardware I've Designed</h2>
+                        <p class="board-gallery-sub">Selected multilayer PCBs &mdash; schematic capture to production-ready layout.</p>
+                        <div class="board-gallery">
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/navix9-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/navix9-top.png" alt="NAVIX-9 V1.0 navigation board — top side"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>NAVIX-9 V1.0 &mdash; Top <small>GNSS nav &middot; STM32H7 &middot; Ethernet &middot; CAN</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/navix9-bottom.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/navix9-bottom.png" alt="NAVIX-9 V1.0 navigation board — bottom side"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>NAVIX-9 V1.0 &mdash; Bottom <small>ZED-F9P GNSS &middot; microSD</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/tool-pcb-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/tool-pcb-top.png" alt="Ergonomic curved tool PCB — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Ergonomic Tool PCB &mdash; Top <small>SPI sensor interface &middot; curved outline</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/tool-pcb-layout.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/tool-pcb-layout.png" alt="Ergonomic curved tool PCB — copper layout"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Ergonomic Tool PCB &mdash; Layout <small>ground pour &middot; tight-outline routing</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/sensor-module.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/sensor-module.png" alt="Compact sensor module PCB"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Sensor Module <small>compact QFP &middot; 2-layer</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/relay-board-3d.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/relay-board-3d.png" alt="Relay Board V1.0 — 3D view"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Relay Board V1.0 &mdash; 3D <small>8&times; relays &middot; XT30 &middot; isolated drive</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/relay-board-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/relay-board-top.png" alt="Relay Board V1.0 — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Relay Board V1.0 &mdash; Top <small>high-current switching &middot; PoE</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/relay-board-bottom.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/relay-board-bottom.png" alt="Relay Board V1.0 — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Relay Board V1.0 &mdash; Bottom <small>MCU &middot; gate drive &middot; routing</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/zentron-controller.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/zentron-controller.png" alt="Zentron controller board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Zentron Controller <small>dual USB 3.0 &middot; dual BGA &middot; power sequencing</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/zentron-controller-bottom.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/zentron-controller-bottom.png" alt="Zentron controller board — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Zentron Controller &mdash; Bottom <small>mezzanine header &middot; power tree</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/Iotech-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/Iotech-top.png" alt="IotechWorld I-GNSS Rev A1 — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>IotechWorld I-GNSS Rev A1 &mdash; Top <small>GNSS receiver &middot; status LEDs</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/iotech-bot.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/iotech-bot.png" alt="IotechWorld I-GNSS Rev A1 — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>IotechWorld I-GNSS Rev A1 &mdash; Bottom <small>GNSS module &middot; DIP config</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/Grobomac.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/Grobomac.png" alt="GRoboMac robotics controller board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>GRoboMac Controller <small>robotics &middot; USB 3.0 &middot; CAN &middot; motor drive</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/Light-Hearted-cntrl-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/Light-Hearted-cntrl-top.png" alt="LightHeart AI Controller V1.1 — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>LightHeart AI Controller V1.1 &mdash; Top <small>Raspberry Pi HAT &middot; power + I/O</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/Light-Hearted-cntrl-bot.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/Light-Hearted-cntrl-bot.png" alt="LightHeart AI Controller V1.1 — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>LightHeart AI Controller V1.1 &mdash; Bottom <small>buck rails &middot; signal routing</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/Light-hearted-Back-panel-Pcb.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/Light-hearted-Back-panel-Pcb.png" alt="LightHeart AI back panel PCB V1.0"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>LightHeart AI &mdash; Back Panel V1.0 <small>dual USB-C &middot; power buttons</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/mechlaae.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/mechlaae.png" alt="Mechlae power board — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Mechlae Power Board &mdash; Top <small>isolated RS-485 &middot; CAN &middot; high-current</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/mechlae-brd.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/mechlae-brd.png" alt="Mechlae power board — 3D view"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Mechlae Power Board &mdash; 3D <small>+VE / &minus;VE terminals &middot; buck converter</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/M-cnn-brd.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/M-cnn-brd.png" alt="Mechlae Energy V1.0 connector board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Mechlae Energy V1.0 &mdash; Connector Board <small>circular &middot; CAN bus</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/mechlae-cnn1.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/mechlae-cnn1.png" alt="Mechlae Energy V1.10 connector board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Mechlae Energy V1.10 &mdash; Connector Board <small>CAN / RS-485 &middot; DIP address</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/SGR-LED-brd.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/SGR-LED-brd.png" alt="SGR LED driver board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>SGR LED Board <small>addressable LED driver array</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/SGR-LED-layout.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/SGR-LED-layout.png" alt="SGR LED board — PCB layout"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>SGR LED &mdash; PCB Layout <small>copper routing &middot; driver chain</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/base-v1.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/base-v1.png" alt="Base Board V1"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Base Board V1 <small>ESP32 &middot; dual motor driver &middot; 12 V</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/marlin.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/marlin.png" alt="Marlin controller board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Marlin Controller <small>ESP32 &middot; relay + joystick I/O</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/trocar-v1.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/trocar-v1.png" alt="Trocar V1 round sensor board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Trocar V1 <small>round PCB &middot; USB-C charging &middot; IR + SPI</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/trocar-v2.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/trocar-v2.png" alt="Trocar V2 round sensor board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>Trocar V2 <small>round PCB &middot; board-to-board stack</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/rpi-cm5-carrier-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/rpi-cm5-carrier-top.png" alt="RPi CM5 carrier board — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>RPi CM5 Carrier &mdash; Top <small>Compute Module 5 &middot; camera &middot; laser interlock</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/rpi-cm5-carrier-bottom.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/rpi-cm5-carrier-bottom.png" alt="RPi CM5 carrier board — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>RPi CM5 Carrier &mdash; Bottom <small>camera FPC &middot; laser + RGB LED drive</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/lh-power-supply-top.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/lh-power-supply-top.png" alt="LH power supply board — top"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>LH Power Supply &mdash; Top <small>BQ25792 charger &middot; eFuse &middot; +5V / +3.3V</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/lh-power-supply-bottom.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/lh-power-supply-bottom.png" alt="LH power supply board — bottom"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>LH Power Supply &mdash; Bottom <small>board-to-board headers &middot; monitor ADC</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/gps-f9.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/gps-f9.png" alt="GPS-F9 RTK GNSS module board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>GPS-F9 RTK Module <small>u-blox ZED-F9P &middot; UART / I&sup2;C / SPI &middot; antenna supervision</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/navig-v1.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/navig-v1.png" alt="NAUYUG M9N GNSS board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>NAUYUG M9N V1.0 <small>u-blox NEO-M9N GNSS &middot; backup RTC</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/imu-bb.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/imu-bb.png" alt="PhiNAV IMU breakout board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>PhiNAV IMU V-02 <small>IMU breakout &middot; multi-sensor</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/ma730.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/ma730.png" alt="MA730 magnetic angle encoder breakout"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>MA730 Angle Encoder <small>14-bit magnetic rotary sensor &middot; SPI / PWM / ABZ</small></figcaption>
+                            </figure>
+
+                            <figure class="board-card">
+                                <a class="board-thumb" href="Photo/boards/iot-composter.png" target="_blank" rel="noopener">
+                                    <img src="Photo/boards/iot-composter.png" alt="IoT composter controller board"
+                                        onerror="this.style.display='none';this.parentElement.classList.add('pending')">
+                                </a>
+                                <figcaption>IoT Composter Controller <small>ESP32 &middot; gas sensor &middot; battery</small></figcaption>
+                            </figure>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dash-section" id="section-about">
+                    <h2 class="sec-title">About Me</h2>
+                    <div class="about-grid">
+                        <div class="glass-card about-bio">
+                            <p>Hi! I'm <strong>Pradeepa N O</strong>, an <strong>Embedded Systems Engineer</strong> with
+                                5+ years of experience across embedded hardware design and end-to-end PCB development.</p>
+                            <p>I specialize in multilayer PCB design (4&ndash;6 layers), mixed-signal and high-speed
+                                layouts, power electronics (DC-DC, SMPS) and PoE-based power management. My work spans
+                                schematic design, component selection, firmware integration on STM32/ESP32, hardware
+                                validation, and manufacturing support including DFM/DFT and Gerber generation.</p>
+                        </div>
+                        <div class="glass-card about-details">
+                            <div class="detail-row"><span>📍</span><span>Bengaluru, India</span></div>
+                            <div class="detail-row"><span>💼</span><span>Embedded Systems Engineer @ OSEC</span></div>
+                            <div class="detail-row"><span>🎓</span><span>B.E. Electronics &amp; Communication, VTU (2023&ndash;2026)</span></div>
+                            <div class="detail-row"><span>✉️</span><span>Pradeepsgr1747@gmail.com</span></div>
+                            <div class="detail-row"><span>📞</span><span>+91-8073301747</span></div>
+                            <div class="detail-row"><span>🌐</span><span>Languages: English, Kannada, Hindi</span></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card timeline-card">
+                        <h3>Experience</h3>
+                        <div class="tl-item">
+                            <div class="tl-head">
+                                <span class="tl-role">Embedded Systems Engineer</span>
+                                <span class="tl-date">Nov 2023 &ndash; Present</span>
+                            </div>
+                            <div class="tl-org">Open Source Engineering Corporation (OSEC) &mdash; Bengaluru, India</div>
+                            <ul>
+                                <li>Engineered multilayer PCBs (4&ndash;6 layers) in Altium: schematic design, component
+                                    selection, and high-speed / mixed-signal layout optimization.</li>
+                                <li>Built power systems &mdash; DC-DC converters, SMPS, protection circuits, and PoE-based
+                                    architectures.</li>
+                                <li>Integrated STM32 and ESP32 platforms with UART, SPI, I2C, CAN, USB, Ethernet (TCP/IP)
+                                    and BLE communication protocols.</li>
+                                <li>Led hardware bring-up, board-level debugging and firmware validation; built test
+                                    dashboards and automated test scripts for prototype verification.</li>
+                                <li>Managed manufacturing releases (Gerber, BOM) with DFM/DFT compliance, collaborating
+                                    cross-functionally to deliver production-ready hardware.</li>
+                            </ul>
+                        </div>
+                        <div class="tl-item">
+                            <div class="tl-head">
+                                <span class="tl-role">Junior Board Design Engineer</span>
+                                <span class="tl-date">Nov 2018 &ndash; Oct 2023</span>
+                            </div>
+                            <div class="tl-org">Axxonet System Technologies &mdash; Bengaluru, India</div>
+                            <ul>
+                                <li>Designed and developed PCBs in Altium Designer, including full component library
+                                    creation.</li>
+                                <li>Verified and validated schematics by building and testing prototype boards against
+                                    industry standards.</li>
+                                <li>Prepared PCB files and documentation for reflow production and incoming quality
+                                    checks.</li>
+                                <li>Established standard assembly procedures and ran product testing per defined
+                                    protocols, with supporting documentation.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="about-grid" style="margin-top:16px">
+                        <div class="glass-card">
+                            <h3>Education</h3>
+                            <div class="detail-row"><span>🎓</span><span>B.E. in Electronics &amp; Communication<br />
+                                    <small>VTU &mdash; Jnana Vikas Institute of Technology, Bengaluru &nbsp;&middot;&nbsp; 2023&ndash;2026</small></span>
+                            </div>
+                            <div class="detail-row"><span>📜</span><span>Diploma in Electronics &amp; Communication Engineering<br />
+                                    <small>DTE &mdash; SM Polytechnic, Sagara &nbsp;&middot;&nbsp; 2015&ndash;2018</small></span>
+                            </div>
+                        </div>
+                        <div class="glass-card">
+                            <h3>Certifications</h3>
+                            <div class="detail-row"><span>✅</span><span>Learn to Design Your Own Boards &mdash; Udemy</span></div>
+                            <div class="detail-row"><span>✅</span><span>Microcontroller Embedded C Programming: Absolute Beginners &mdash; Udemy</span></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" style="margin-top:16px">
+                        <h3>Tools &amp; Platforms</h3>
+                        <div class="tool-tags">
+                            <span>Altium Designer</span><span>KiCad</span><span>LTspice</span><span>STM32Cube</span>
+                            <span>Arduino IDE</span><span>VS Code</span><span>Cursor</span><span>nRF Connect</span>
+                            <span>Git</span><span>Oscilloscope</span><span>Logic Analyzer</span><span>Multimeter</span>
+                            <span>MS Office</span><span>LibreOffice</span><span>Canva</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dash-section" id="section-skills">
+                    <h2 class="sec-title">Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="sk-icon">🧩</div>
+                            <div class="sk-name">PCB Design &mdash; Altium Designer</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">📐</div>
+                            <div class="sk-name">Multilayer &amp; High-Speed Layout</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">🔋</div>
+                            <div class="sk-name">Power Electronics (DC-DC, SMPS, PoE)</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">🔌</div>
+                            <div class="sk-name">STM32 / ESP32 Firmware Integration</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">🧪</div>
+                            <div class="sk-name">Hardware Bring-up, Test &amp; Debug</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">🏭</div>
+                            <div class="sk-name">BOM, DFM/DFT &amp; Gerber Release</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">💻</div>
+                            <div class="sk-name">C / C++ Programming</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="82"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">🐍</div>
+                            <div class="sk-name">Python / HTML / CSS (Test Dashboards)</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="sk-icon">📡</div>
+                            <div class="sk-name">UART / SPI / I2C / CAN / USB / Ethernet / BLE</div>
+                            <div class="sk-bar">
+                                <div class="sk-fill" data-pct="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dash-section" id="section-projects">
+                    <h2 class="sec-title">Projects</h2>
+
+                    <a class="project-featured" href="projects/navix-9.html" target="_blank" rel="noopener">
+                        <div class="pf-thumb">
+                            <img src="Photo/boards/navix9-top.png" alt="NAVIX-9 navigation board"
+                                onerror="this.parentElement.style.background='linear-gradient(135deg,#EADBC8,#D4AF37)'">
+                        </div>
+                        <div class="pf-body">
+                            <div class="pf-kicker">Featured &nbsp;&bull;&nbsp; Spec sheet</div>
+                            <h3>NAVIX-9 &mdash; Dual-GNSS RTK Navigation Unit</h3>
+                            <p>Precision navigation board fusing two u-blox ZED-F9P RTK receivers with a dual-IMU suite
+                                and a 100&nbsp;Hz EKF on an STM32H743 Cortex-M7. Isolated CAN&nbsp;FD &amp; RS-232,
+                                Ethernet, microSD logging.</p>
+                            <div class="proj-tags"><span>STM32H743</span><span>ZED-F9P &times;2</span><span>CAN FD</span><span>Ethernet</span><span>EKF</span></div>
+                            <span class="pf-cta">Open spec sheet &#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="project-featured" href="projects/tool-pcb-v13.html" target="_blank" rel="noopener">
+                        <div class="pf-thumb">
+                            <img src="Photo/boards/tool-pcb-top.png" alt="TOOL PCB V1.3 board"
+                                onerror="this.parentElement.style.background='linear-gradient(135deg,#EADBC8,#D4AF37)'">
+                        </div>
+                        <div class="pf-body">
+                            <div class="pf-kicker">Featured &nbsp;&bull;&nbsp; Spec sheet</div>
+                            <h3>TOOL PCB V1.3 &mdash; BLE Handheld Tool Board</h3>
+                            <p>Battery-powered nRF52832 handheld board with an nPM1304 PMIC (charging + fuel gauge),
+                                LIS2DTW12 motion/temp and an A1392 linear Hall input. USB-C console via CP2102N, plus a
+                                custom Windows test dashboard streaming live PMIC telemetry over BLE.</p>
+                            <div class="proj-tags"><span>nRF52832</span><span>nPM1304 PMIC</span><span>BLE</span><span>Linear Hall</span><span>Test dashboard</span></div>
+                            <span class="pf-cta">Open spec sheet &#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="project-featured" href="projects/relay-board-v1.html" target="_blank" rel="noopener">
+                        <div class="pf-thumb">
+                            <img src="Photo/boards/relay-board-3d.png" alt="RELAY Board V1.0"
+                                onerror="this.parentElement.style.background='linear-gradient(135deg,#EADBC8,#D4AF37)'">
+                        </div>
+                        <div class="pf-body">
+                            <div class="pf-kicker">Featured &nbsp;&bull;&nbsp; Spec sheet</div>
+                            <h3>RELAY Board V1.0 &mdash; PoE Relay &amp; PWM Controller</h3>
+                            <p>PoE-powered board with 10 relay outputs plus 2 PWM power outputs (LED dimming) on an
+                                STM32F401, with a WIZnet W5500 hardwired TCP/IP interface and an ESP32 BLE channel.
+                                PM8805 PoE front end, LM5164 100&nbsp;V&rarr;12&nbsp;V + TPS564247 buck chain.</p>
+                            <div class="proj-tags"><span>STM32F401</span><span>W5500</span><span>PoE / PM8805</span><span>ESP32 BLE</span><span>10&times; relay</span><span>2&times; PWM</span></div>
+                            <span class="pf-cta">Open spec sheet &#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="project-featured" href="projects/lh-power-supply.html" target="_blank" rel="noopener">
+                        <div class="pf-thumb">
+                            <img src="Photo/boards/lh-power-supply-top.png" alt="LH Power Supply Board"
+                                onerror="this.parentElement.style.background='linear-gradient(135deg,#EADBC8,#D4AF37)'">
+                        </div>
+                        <div class="pf-body">
+                            <div class="pf-kicker">Featured &nbsp;&bull;&nbsp; Spec sheet</div>
+                            <h3>LH Power Supply Board V1.0 &mdash; Charging Power Supply</h3>
+                            <p>12&nbsp;V-in, 4-layer power board for the LightScope stack: TPS25942 eFuse &rarr; BQ25792
+                                buck-boost battery charger with power path &rarr; TPS564247 + XC6220 rails, with an
+                                ADS7128 8-channel I&sup2;C ADC monitoring every rail.</p>
+                            <div class="proj-tags"><span>BQ25792</span><span>TPS25942 eFuse</span><span>Buck-boost charge</span><span>+5V / +3.3V</span><span>ADS7128 monitor</span></div>
+                            <span class="pf-cta">Open spec sheet &#8599;</span>
+                        </div>
+                    </a>
+
+                    <a class="project-featured" href="projects/rpi-cm5-carrier.html" target="_blank" rel="noopener">
+                        <div class="pf-thumb">
+                            <img src="Photo/boards/rpi-cm5-carrier-top.png" alt="RPI CM5 Carrier Board"
+                                onerror="this.parentElement.style.background='linear-gradient(135deg,#EADBC8,#D4AF37)'">
+                        </div>
+                        <div class="pf-body">
+                            <div class="pf-kicker">Featured &nbsp;&bull;&nbsp; Spec sheet</div>
+                            <h3>RPI CM5 Carrier Board &mdash; Compute Module 5 Carrier</h3>
+                            <p>Raspberry Pi Compute Module 5 carrier for the LightScope: dual 100-pin CM5 interface,
+                                MIPI camera, USB 2.0, 4&times; RGB status LEDs, SHT31A temp/humidity, and an independent
+                                <b>hardware laser interlock</b> &mdash; a 555 + P-FET/N-FET switch that software can't
+                                override.</p>
+                            <div class="proj-tags"><span>RPi CM5</span><span>MIPI camera</span><span>555 laser interlock</span><span>4&times; RGB LED</span><span>SHT31A</span><span>USB 2.0</span></div>
+                            <span class="pf-cta">Open spec sheet &#8599;</span>
+                        </div>
+                    </a>
+
+                    <h3 class="proj-subhead">More Work</h3>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="proj-emoji">🧩</div>
+                            <h3>Multilayer PCB Design (4&ndash;6 Layer)</h3>
+                            <p>End-to-end Altium design of mixed-signal and high-speed boards &mdash; schematic capture,
+                                component selection, stack-up planning and layout optimization through to fabrication.</p>
+                            <div class="proj-tags"><span>Altium</span><span>Mixed-Signal</span><span>High-Speed</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="proj-emoji">🔋</div>
+                            <h3>PoE &amp; Power Management Systems</h3>
+                            <p>Designed DC-DC converters, SMPS, protection circuits and PoE-based power architectures for
+                                production embedded hardware.</p>
+                            <div class="proj-tags"><span>DC-DC</span><span>SMPS</span><span>PoE</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="proj-emoji">🔌</div>
+                            <h3>STM32 / ESP32 Platform Integration</h3>
+                            <p>Brought up STM32 and ESP32 platforms with UART, SPI, I2C, CAN, USB, Ethernet (TCP/IP) and
+                                BLE, including board-level debugging and firmware validation.</p>
+                            <div class="proj-tags"><span>STM32</span><span>ESP32</span><span>BLE</span><span>Ethernet</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="proj-emoji">🧪</div>
+                            <h3>Automated Test Dashboards</h3>
+                            <p>Built Python / HTML / CSS dashboards and automated test scripts for prototype verification
+                                during hardware bring-up.</p>
+                            <div class="proj-tags"><span>Python</span><span>HTML/CSS</span><span>Test Automation</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="proj-emoji">🏭</div>
+                            <h3>Manufacturing Release &amp; DFM/DFT</h3>
+                            <p>Managed Gerber and BOM releases with DFM/DFT compliance, established assembly procedures
+                                and reflow production documentation.</p>
+                            <div class="proj-tags"><span>Gerber</span><span>BOM</span><span>DFM/DFT</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                        <div class="project-card">
+                            <div class="proj-emoji">📚</div>
+                            <h3>Component Library Creation</h3>
+                            <p>Created full Altium component libraries (symbols, footprints, 3D models) and validated
+                                schematics against industry standards with prototype builds.</p>
+                            <div class="proj-tags"><span>Altium</span><span>Library</span><span>Validation</span></div>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="proj-link">GitHub →</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dash-section" id="section-contact">
+                    <h2 class="sec-title">Contact Me</h2>
+                    <div class="contact-grid">
+                        <div class="glass-card">
+                            <div class="inp-grp"><label>Your Name</label><input type="text" id="c-name"
+                                    placeholder="John Doe" /></div>
+                            <div class="inp-grp"><label>Email</label><input type="email" id="c-email"
+                                    placeholder="john@email.com" /></div>
+                            <div class="inp-grp"><label>Message</label><textarea id="c-msg"
+                                    placeholder="Let's work together..." rows="4"></textarea></div>
+                            <button class="btn-primary" id="sendContact">Send Message 🚀</button>
+                        </div>
+                        <div class="glass-card socials-card">
+                            <h3>Find Me Online</h3>
+                            <a href="https://linkedin.com/in/pradeepa-n-o" target="_blank" rel="noopener" class="social-link"><span>💼</span> linkedin.com/in/pradeepa-n-o</a>
+                            <a href="https://github.com/Pradeep-Sgr99" target="_blank" rel="noopener" class="social-link"><span>🐙</span> github.com/Pradeep-Sgr99</a>
+                            <a href="mailto:Pradeepsgr1747@gmail.com" class="social-link"><span>✉️</span> Pradeepsgr1747@gmail.com</a>
+                            <a href="tel:+918073301747" class="social-link"><span>📞</span> +91-8073301747</a>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

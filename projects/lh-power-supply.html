@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LH Power Supply Board V1.0 &mdash; Project Spec Sheet | Pradeepa N O</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #FEFBF6;
+            --ink: #2D2424;
+            --muted: #6b5d55;
+            --accent: #B08D57;
+            --accent2: #D4AF37;
+            --line: rgba(176, 141, 87, 0.25);
+            --card: #ffffff;
+            --chip: rgba(176, 141, 87, 0.10);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+            padding: 32px 16px 64px;
+        }
+
+        .sheet {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            padding: 44px 48px;
+        }
+
+        .toolbar {
+            max-width: 900px;
+            margin: 0 auto 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .toolbar a:hover { text-decoration: underline; }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 9px 18px;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-print:hover { filter: brightness(1.06); }
+
+        header.doc-head {
+            border-bottom: 3px solid var(--accent2);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.3rem;
+            line-height: 1.1;
+            margin: 6px 0 4px;
+        }
+
+        .subtitle { font-size: 1.02rem; color: var(--muted); }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .meta-row b { color: var(--ink); font-weight: 600; }
+
+        .photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 22px 0 6px;
+        }
+
+        .photos figure {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #faf6ef;
+        }
+
+        .photos img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photos figcaption {
+            font-size: 0.74rem;
+            color: var(--muted);
+            padding: 7px 10px;
+            border-top: 1px solid var(--line);
+        }
+
+        h2 {
+            font-size: 1.12rem;
+            margin: 26px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        h2 .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent2);
+            flex-shrink: 0;
+        }
+
+        p.lead { margin: 8px 0; }
+
+        ul.clean { list-style: none; margin: 6px 0; }
+
+        ul.clean li {
+            padding: 5px 0 5px 20px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+
+        ul.clean li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        ul.clean li b { font-weight: 600; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+            margin: 10px 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--chip);
+            font-weight: 700;
+            font-size: 0.76rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        td code {
+            font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+            font-size: 0.82em;
+            background: var(--chip);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0 2px;
+        }
+
+        .chips span {
+            font-size: 0.74rem;
+            background: var(--chip);
+            border: 1px solid var(--line);
+            color: var(--accent);
+            border-radius: 20px;
+            padding: 3px 11px;
+        }
+
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 12px 0;
+            font-size: 0.82rem;
+        }
+
+        .flow .node {
+            background: var(--chip);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 7px 11px;
+            font-weight: 600;
+        }
+
+        .flow .arrow { color: var(--accent); font-weight: 700; }
+
+        .callout {
+            background: var(--chip);
+            border-left: 3px solid var(--accent2);
+            border-radius: 6px;
+            padding: 12px 14px;
+            font-size: 0.86rem;
+            margin: 12px 0;
+        }
+
+        footer.doc-foot {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        footer.doc-foot a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 680px) {
+            .sheet { padding: 30px 22px; }
+            h1 { font-size: 1.8rem; }
+            .photos { grid-template-columns: 1fr; }
+            .photos img { height: 210px; }
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; font-size: 11px; }
+            .toolbar { display: none; }
+            .sheet {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                max-width: none;
+                padding: 0;
+            }
+            h2 { break-after: avoid; }
+            table, ul.clean, .callout, .photos, .flow { break-inside: avoid; }
+            .photos img { height: 190px; }
+            a { color: var(--ink); text-decoration: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <a href="../index.html">&larr; Back to portfolio</a>
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="sheet">
+
+        <header class="doc-head">
+            <div class="eyebrow">Project Spec Sheet &nbsp;&bull;&nbsp; 04</div>
+            <h1>LH Power Supply Board V1.0</h1>
+            <div class="subtitle">12&nbsp;V-in battery-charging power supply &mdash; eFuse protection, buck-boost charger,
+                regulated system rails</div>
+            <div class="meta-row">
+                <span><b>Role:</b> Hardware design &amp; PCB layout</span>
+                <span><b>Product:</b> LightScope (lighthearted)</span>
+                <span><b>Input:</b> 12&nbsp;V DC only (no USB/PD)</span>
+                <span><b>Battery:</b> 2S2P Li-ion (4 cells)</span>
+                <span><b>Stack-up:</b> 4-layer</span>
+                <span><b>Control:</b> I&sup2;C (charger + monitor ADC)</span>
+            </div>
+        </header>
+
+        <div class="photos">
+            <figure>
+                <img src="../Photo/boards/lh-power-supply-top.png" alt="LH Power Supply Board, top side"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>Top side &mdash; eFuse, buck-boost charger, power inductors, VSYS / +5&nbsp;V / +3.3&nbsp;V rails</figcaption>
+            </figure>
+            <figure>
+                <img src="../Photo/boards/lh-power-supply-bottom.png" alt="LH Power Supply Board, bottom side"
+                    onerror="this.parentElement.style.display='none'">
+                <figcaption>Bottom side &mdash; board-to-board headers to the LightScope stack, monitor ADC and control</figcaption>
+            </figure>
+        </div>
+
+        <h2><span class="dot"></span>Overview</h2>
+        <p class="lead">The LH Power Supply Board takes a single <b>12&nbsp;V DC</b> input (no USB/PD) and turns it into a
+            battery-backed, monitored supply for the LightScope system. A <b>TPS25942</b> eFuse guards the input against
+            over-voltage, over-current and inrush; a <b>BQ25792</b> buck-boost charger runs a <b>2S2P (4-cell) Li-ion
+            pack</b> and holds up <b>VSYS</b> through its integrated power path; and a two-step regulator chain provides
+            the <b>+5&nbsp;V</b> and <b>+3.3&nbsp;V</b> rails. An <b>ADS7128</b> 8-channel I&sup2;C ADC monitors the rail
+            voltages and current senses so the host can see the full power state. Built on a <b>4-layer</b> stack-up for
+            the switching planes and return paths.</p>
+
+        <div class="chips">
+            <span>12&nbsp;V DC input</span><span>eFuse protection</span><span>2S2P Li-ion charger</span>
+            <span>Integrated power path</span><span>+5&nbsp;V / +3.3&nbsp;V rails</span><span>8-ch I&sup2;C monitor ADC</span>
+            <span>4-layer</span>
+        </div>
+
+        <h2><span class="dot"></span>Power flow</h2>
+        <div class="flow">
+            <span class="node">12&nbsp;V DC in</span>
+            <span class="arrow">&rarr;</span>
+            <span class="node">TPS25942 eFuse</span>
+            <span class="arrow">&rarr;</span>
+            <span class="node">BQ25792 charger + power path</span>
+            <span class="arrow">&rarr;</span>
+            <span class="node">VSYS</span>
+            <span class="arrow">&rarr;</span>
+            <span class="node">TPS564247 buck &rarr; +5&nbsp;V</span>
+            <span class="arrow">&rarr;</span>
+            <span class="node">XC6220 LDO &rarr; +3.3&nbsp;V</span>
+        </div>
+        <p class="lead">The BQ25792 also feeds and charges the 2S2P pack; on loss of the 12&nbsp;V input it supplies
+            VSYS from the battery through the same power path (no rail dropout).</p>
+
+        <h2><span class="dot"></span>Key components</h2>
+        <table>
+            <tr>
+                <th style="width:24%">Part</th>
+                <th style="width:28%">Function</th>
+                <th>Role on the board</th>
+            </tr>
+            <tr>
+                <td><b>TPS25942ARVCR</b><br>Texas Instruments</td>
+                <td>Integrated-FET eFuse / hot-swap protection (2.7&ndash;18&nbsp;V)</td>
+                <td>Input guard right at the 12&nbsp;V entry &mdash; adjustable current limit, over-voltage clamp,
+                    under-voltage lockout, inrush / dV/dt control, reverse-current blocking and power-good</td>
+            </tr>
+            <tr>
+                <td><b>BQ25792RQMR</b><br>Texas Instruments</td>
+                <td>Buck-boost battery charger (1S&ndash;4S capable) with integrated power path and telemetry ADC</td>
+                <td>Configured <b>2S</b> &mdash; charges the 2S2P (4-cell) Li-ion pack from the protected 12&nbsp;V rail
+                    and regulates <b>VSYS</b>; on-chip ADC reports VBUS / VBAT / IBUS / IBAT / TS / die-temp over
+                    I&sup2;C; seamless battery fall-back on input loss</td>
+            </tr>
+            <tr>
+                <td><b>TPS564247DRLR</b><br>Texas Instruments</td>
+                <td>4.5&ndash;18&nbsp;V, 6&nbsp;A synchronous buck converter</td>
+                <td>Steps VSYS down to the <b>+5&nbsp;V</b> system rail</td>
+            </tr>
+            <tr>
+                <td><b>XC6220B331MR-G</b><br>Torex</td>
+                <td>1&nbsp;A low-noise LDO, fixed 3.3&nbsp;V, high PSRR</td>
+                <td>Derives the clean <b>+3.3&nbsp;V</b> rail from +5&nbsp;V for the control and analog circuitry</td>
+            </tr>
+            <tr>
+                <td><b>ADS7128IRTER</b><br>Texas Instruments</td>
+                <td>8-channel, 12-bit I&sup2;C SAR ADC with GPIOs and digital window comparators</td>
+                <td>Power monitor &mdash; samples rail voltages and current-sense outputs; window comparators flag
+                    out-of-range rails to the host</td>
+            </tr>
+        </table>
+
+        <h2><span class="dot"></span>Protection &amp; monitoring</h2>
+        <ul class="clean">
+            <li><b>Input (TPS25942):</b> current limiting, OV clamp and UVLO, controlled inrush and reverse-current
+                blocking &mdash; downstream stages never see a fault or surge on the 12&nbsp;V line.</li>
+            <li><b>Battery (BQ25792):</b> 2S CC/CV profile with configurable current, battery thermistor (TS) sensing and
+                safety timers; integrated ADC gives VBAT / IBAT / VBUS / IBUS without extra parts.</li>
+            <li><b>Rails (ADS7128):</b> eight channels across the board's voltage dividers and current senses, read over
+                I&sup2;C; the built-in comparators raise a flag on any rail excursion.</li>
+            <li>Charger and monitor ADC share one <b>I&sup2;C</b> bus to the host controller, with interrupt / power-good
+                lines for fast fault response.</li>
+        </ul>
+
+        <h2><span class="dot"></span>Layout notes</h2>
+        <ul class="clean">
+            <li><b>4-layer</b> stack-up: switching-node copper kept tight, a solid ground plane directly under the power
+                stages, and separate analog ground for the monitor ADC and dividers.</li>
+            <li>eFuse and bulk input filtering at the connector; charger power inductor and the buck inductor placed with
+                short high-current loops and their own local decoupling.</li>
+            <li>Battery, VSYS, +5&nbsp;V and +3.3&nbsp;V brought out on labelled pads / board-to-board headers to the rest
+                of the LightScope stack.</li>
+            <li>Sense lines to the ADS7128 routed away from the switching nodes; Kelvin connections on the current-sense
+                resistors.</li>
+        </ul>
+
+        <footer class="doc-foot">
+            <span>Pradeepa N O &mdash; Embedded Systems Engineer</span>
+            <span><a href="mailto:Pradeepsgr1747@gmail.com">Pradeepsgr1747@gmail.com</a> &nbsp;&bull;&nbsp;
+                <a href="https://github.com/Pradeep-Sgr99">github.com/Pradeep-Sgr99</a></span>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

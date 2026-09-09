@@ -1,0 +1,38 @@
+HOW TO ADD YOUR BOARD IMAGES TO THE PORTFOLIO
+=============================================
+
+Save each board picture into THIS folder (Photo/boards/) using the exact
+file name below. Use .png (or change the name in PortPolio.html to .jpg).
+
+!! WATCH THE EXTENSION !!
+Windows can save the file as "navix9-top.png.png" (double .png) when
+"Hide extensions for known file types" is on and you type ".png" yourself.
+The page looks for "navix9-top.png" exactly - a doubled extension = broken
+image. In the Save dialog either leave the name WITHOUT ".png" (the PNG
+type adds it once), or turn on View > File name extensions and check the
+final name.
+
+Until a file exists, its card shows a dashed "Add image" placeholder, so you
+can drop them in one by one and refresh the page.
+
+FILE NAME                 WHAT IT IS
+------------------------  --------------------------------------------------
+navix9-top.png            NAVIX-9 V1.0 board, TOP side (STM32, RECOM, RJ45, display)
+navix9-bottom.png         NAVIX-9 V1.0 board, BOTTOM side (ZED-F9P GNSS, microSD)
+tool-pcb-top.png          Curved ergonomic tool PCB, 3D top view (CS/SI/SO/CK pads)
+tool-pcb-layout.png       Same curved board, PCB copper/layout view (red)
+tool-pcb-v13.png          TOOL_PCB_V1.3 board (USB-C, Hall sensor, "OSEC")   [STILL MISSING]
+sensor-module.png         Small 2-layer module with the QFP chip ("OSEC")
+relay-board-3d.png        Relay / Delay board, angled 3D view (relays + XT connectors)
+relay-board-top.png       Relay_Board_V1.0, straight top view
+relay-board-bottom.png    Relay_Board_V1.0, bottom side
+zentron-controller.png    Zentron Labs controller board (dual USB 3.0, dual BGA)
+zentron-controller-bottom.png   Zentron Labs controller board, bottom side
+cotton-picker.png         Cotton Picker Board v1.2 (Zentron) with mezzanine   [STILL MISSING]
+navix9-altium.png         Altium Designer screenshot (optional)              [STILL MISSING]
+
+To add MORE boards later: copy one <figure class="board-card"> ... </figure>
+block in PortPolio.html (inside <div class="board-gallery">), change the
+src / href file name and the <figcaption> text.
+
+To remove a card you don't want: delete its <figure> ... </figure> block.
